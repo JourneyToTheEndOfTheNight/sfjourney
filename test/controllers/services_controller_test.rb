@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class IdentityTest < ActiveSupport::TestCase
+class ServicesControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

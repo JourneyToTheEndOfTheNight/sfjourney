@@ -9,9 +9,10 @@ gem 'pg'
 gem 'thin'
 
 gem 'omniauth'
-gem 'omniauth-identity'
+gem 'omniauth-openid'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 
 # Use SCSS for stylesheets

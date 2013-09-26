@@ -3,15 +3,11 @@ development:
   encoding: unicode
   database: sfjourney_development
   pool: 5
-  username: root
-  password:
 test:
   adapter: postgresql
   encoding: unicode
   database: sfjourney_test
   pool: 5
-  username: root
-  password:
 production:
   adapter: postgresql
   encoding: unicode

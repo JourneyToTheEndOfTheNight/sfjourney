@@ -1,4 +1,33 @@
 Sfjourney::Application.routes.draw do
+  get "tos" => 'tos/show'
+  get "privacy" => 'privacy/show'
+
+  # Omniauth pure
+  match "/signin" => "services#signin", via: [:get, :post]
+  match "/signout" => "services#signout", via: [:get, :post]
+
+  match '/auth/:service/callback' => 'services#create', via: [:get, :post]
+  match '/auth/failure' => 'services#failure', via: [:get, :post]
+
+  resources :services, :only => [:index, :create, :destroy] do
+    collection do
+      get 'signin'
+      get 'signout'
+      get 'signup'
+      post 'newaccount'
+      get 'failure'
+    end
+  end
+
+  # used for the demo application only
+  resources :users, :only => [:index] do
+    collection do
+      get 'test'
+    end
+  end
+
+  root "users#index"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -39,7 +68,7 @@ Sfjourney::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
