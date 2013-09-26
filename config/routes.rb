@@ -1,6 +1,6 @@
 Sfjourney::Application.routes.draw do
-  get "tos" => 'tos/show'
-  get "privacy" => 'privacy/show'
+  get "tos" => 'tos#show'
+  get "privacy" => 'privacy#show'
 
   # Omniauth pure
   match "/signin" => "services#signin", via: [:get, :post]
