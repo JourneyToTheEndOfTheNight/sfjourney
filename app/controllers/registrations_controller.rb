@@ -66,7 +66,11 @@ class RegistrationsController < ApplicationController
     respond_to do |format|
       if @registration.save
         format.html do
-          RegistrationMailer.confirmation_email(@registration).deliver
+          begin
+            RegistrationMailer.confirmation_email(@registration).deliver
+          rescue Exception => e
+            logger.error e.backtrace
+          end
           redirect_to @registration, notice: 'Registration was successfully created.'
         end
         format.json { render action: 'show', status: :created, location: @registration }
