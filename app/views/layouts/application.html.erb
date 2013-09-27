@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<section id="head">
+<section id="head" class="noprint">
     <section id="user">
         <% if user_signed_in? %>
             <nav id="nav_user">
@@ -30,8 +30,6 @@
             </nav>
         <% end %>
     </section>
-
-    <h1>Omniauth <sup>pure</sup></h1>
 </section>
 
 <section id="body">
@@ -44,7 +42,7 @@
     <%= yield %>
 </section>
 
-<section id="footer">
+<section id="footer" class="noprint">
   <nav id="nav_footer">
       <ul>
           <li><%= link_to "Privacy Policy", "/privacy" %></li>

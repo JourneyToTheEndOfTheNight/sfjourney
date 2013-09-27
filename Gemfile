@@ -8,6 +8,8 @@ gem 'rails_12factor', group: :production
 gem 'pg'
 gem 'thin'
 
+gem 'twitter-bootstrap-rails'
+
 gem 'omniauth'
 gem 'omniauth-openid'
 gem 'omniauth-facebook'

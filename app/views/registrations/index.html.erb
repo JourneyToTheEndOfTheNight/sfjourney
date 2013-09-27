@@ -1,0 +1,30 @@
+<h2></h2>
+
+
+<h3>You may reprint your waivers or unregister below:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @registrations.each do |registration| %>
+      <tr>
+        <td><%= registration.name %></td>
+        <td><%= registration.email %></td>
+        <td><%= link_to 'Reprint', registration %></td>
+        <td><%= link_to 'Unregister', registration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h3>You can also fill out the registration form for other players coming with you. Remember, each player must register and bring their printed and signed waiver!</h3>
+
+<%= link_to 'Register Another Player', new_registration_path %>

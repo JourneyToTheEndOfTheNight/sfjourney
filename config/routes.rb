@@ -1,6 +1,10 @@
 Sfjourney::Application.routes.draw do
+  get "registrations/full" => 'registrations#full'
+  resources :registrations, :only => [:index, :create, :destroy, :show, :new]
+
   get "tos" => 'tos#show'
   get "privacy" => 'privacy#show'
+  get "export" => 'registrations#export'
 
   # Omniauth pure
   match "/signin" => "services#signin", via: [:get, :post]
@@ -19,14 +23,7 @@ Sfjourney::Application.routes.draw do
     end
   end
 
-  # used for the demo application only
-  resources :users, :only => [:index] do
-    collection do
-      get 'test'
-    end
-  end
-
-  root "users#index"
+  root "registrations#landing"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
