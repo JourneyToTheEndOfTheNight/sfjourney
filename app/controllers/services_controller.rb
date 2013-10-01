@@ -34,27 +34,21 @@ class ServicesController < ApplicationController
 
   # helper function
   def make_new_account
-    Rails.logger.info session[:authhash].inspect
+    Rails.logger.info "Session: " + session.inspect
+    Rails.logger.info "Auth hash: " + session[:authhash].inspect
     @newuser = User.new
     if !session[:authhash].has_key?(:email)
       flash[:error] = 'Your authentication provider did not give us an email address...please try another login method.'
       redirect_to root_url
     end
     @newuser.email = session[:authhash][:email]
-    if session[:authhash].has_key?(:name)
-      @newuser.name = session[:authhash][:name]
-    elsif session[:authhash].has_key?(:fullname)
-      @newuser.name = session[:authhash][:fullname]
-    elsif session[:authhash].has_key?(:nickname)
-      @newuser.name = session[:authhash][:nickname]
-    else
-      @newuser.name = session[:authhash][:email]
-    end
+    @newuser.name = session[:authhash][:name]
+
     @newuser.services.build(:provider => session[:authhash][:provider], :uid => session[:authhash][:uid], :uname => session[:authhash][:name], :uemail => session[:authhash][:email])
 
     if @newuser.save!
       # signin existing user
-      # in the session his user id and the service id used for signing in is stored
+      # in the session the user id and the service id used for signing in is stored
       session[:user_id] = @newuser.id
       session[:service_id] = @newuser.services.first.id
 
@@ -107,6 +101,7 @@ class ServicesController < ApplicationController
         omniauth['extra']['raw_info']['id'] ? @authhash[:uid] =  omniauth['extra']['raw_info']['id'].to_s : @authhash[:uid] = ''
         omniauth['provider'] ? @authhash[:provider] =  omniauth['provider'] : @authhash[:provider] = ''
       elsif ['google', 'google_apps', 'yahoo', 'twitter', 'myopenid', 'openid'].index(service_route) != nil
+        Rails.logger.info "etceterated info: " + @authhash.inspect
         omniauth['info']['email'] ? @authhash[:email] =  omniauth['info']['email'] : @authhash[:email] = ''
         omniauth['info']['name'] ? @authhash[:name] =  omniauth['info']['name'] : @authhash[:name] = ''
         omniauth['uid'] ? @authhash[:uid] = omniauth['uid'].to_s : @authhash[:uid] = ''
