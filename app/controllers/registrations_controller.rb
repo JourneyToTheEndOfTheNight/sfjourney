@@ -68,6 +68,7 @@ class RegistrationsController < ApplicationController
         format.html do
           begin
             RegistrationMailer.confirmation_email(@registration).deliver
+            RegistrationMailer.new_registration_email(@registration).deliver
           rescue Exception => e
             logger.error e.backtrace
           end
