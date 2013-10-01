@@ -21,7 +21,7 @@ class ServicesController < ApplicationController
     redirect_to services_path
   end
 
-  # POST from signup view
+  # POST from signup view; no longer really used, may not work...
   def newaccount
     if params[:commit] == "Cancel"
       session[:authhash] = nil
@@ -35,16 +35,16 @@ class ServicesController < ApplicationController
   # helper function
   def make_new_account
     Rails.logger.info "Session: " + session.inspect
-    Rails.logger.info "Auth hash: " + session[:authhash].inspect
+    Rails.logger.info "Auth hash: " + @authhash.inspect
     @newuser = User.new
-    if !session[:authhash].has_key?(:email)
+    if !@authhash.has_key?(:email)
       flash[:error] = 'Your authentication provider did not give us an email address...please try another login method.'
       redirect_to root_url
     end
-    @newuser.email = session[:authhash][:email]
-    @newuser.name = session[:authhash][:name]
+    @newuser.email = @authhash[:email]
+    @newuser.name = @authhash[:name]
 
-    @newuser.services.build(:provider => session[:authhash][:provider], :uid => session[:authhash][:uid], :uname => session[:authhash][:name], :uemail => session[:authhash][:email])
+    @newuser.services.build(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email])
 
     if @newuser.save!
       # signin existing user

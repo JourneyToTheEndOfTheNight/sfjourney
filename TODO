@@ -4,3 +4,4 @@
 * security issue: need to make sure parameter controls on registration/user creation are working
 * security issue: need to make sure admin control is working for export functionality
 * account merging (with confirm) via settings
+* make registrations event-specific
