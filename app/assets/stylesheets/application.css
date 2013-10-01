@@ -43,7 +43,7 @@ a:hover { color: #c81419; }
 #flash { margin-bottom: 60px; }
 .flash { padding: 5px; background-color: #dddddd; }
 .error { color: #ffffff; background-color: #c81419; }
-.notice { background-color: #ffff00; }
+.notice { background-color: #082880; }
 
 .round { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 .clear { clear: both; }
@@ -72,12 +72,12 @@ nav ul li.selected a { color: #c81419; }
 /* signup: create new account */
 #services_new {}
 #services_new input { margin-right: 20px; }
-#services_new div { background-color: #dddddd; padding: 20px; margin-bottom: 40px; }
+#services_new div { background-color: #4a4a4a; padding: 20px; margin-bottom: 40px; }
 
 /* manage your services */
 #services_manage {}
 
-.service_in_use { background-color: #dddddd; height: 64px; width: 300px; margin-bottom: 10px; padding: 5px; }
+.service_in_use { background-color: #4a4a4a; height: 64px; width: 300px; margin-bottom: 10px; padding: 5px; }
 .service_img { float: left; }
 .service_userdata { font-size: 12px; line-height: 1.1em; margin-left: 80px; padding-top: 6px;}
 .service_userdata span { color: #c81419; }
