@@ -17,9 +17,9 @@ class RegistrationsController < ApplicationController
   def export
     @registrations = Registration.where('can_email', true).uniq#group(:email)
     if params[:all_fields]
-      csv_string = "\"name\",\"email\",\"birthday\",\"address\",\"city\",\"state\",\"zip\",\"phone\"\n"
+      csv_string = "\"name\",\"email\",\"team_name\",\"birthday\",\"address\",\"city\",\"state\",\"zip\",\"phone\"\n"
       @registrations.each do |u|
-        csv_string += "\"#{u.name}\",\"#{u.email}\",\"#{u.birthday.strftime("%m/%d/%Y") if u.birthday}\",\"#{u.address}\",\"#{u.city}\",\"#{u.state}\",\"#{u.zip}\",\"#{u.phone}\"\n"
+        csv_string += "\"#{u.name}\",\"#{u.email}\",\"#{u.team_name}\",\"#{u.birthday.strftime("%m/%d/%Y") if u.birthday}\",\"#{u.address}\",\"#{u.city}\",\"#{u.state}\",\"#{u.zip}\",\"#{u.phone}\"\n"
       end
     else
       csv_string = "\"name\",\"email\"\n"
@@ -99,6 +99,8 @@ class RegistrationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def registration_params
-      params.require(:registration).permit(:name, :email, :can_email, :emergency_contact_name, :emergency_contact_phone, :emergency_contact_relationship, :birthday, :address, :city, :state, :zip, :phone)
+      params.require(:registration).permit(:name, :email, :can_email,
+        :team_name, :birthday,
+        :address, :city, :state, :zip, :phone)
     end
 end

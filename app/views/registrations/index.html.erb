@@ -8,6 +8,7 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
+      <th>Team</th>
     </tr>
   </thead>
 
@@ -16,6 +17,7 @@
       <tr>
         <td><%= registration.name %></td>
         <td><%= registration.email %></td>
+        <td><%= registration.team_name %></td>
         <td><%= link_to 'Reprint', registration %></td>
         <td><%= link_to 'Unregister', registration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

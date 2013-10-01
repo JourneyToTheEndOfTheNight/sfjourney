@@ -24,6 +24,10 @@
     <%= f.check_box :can_email %>
   </div>
   <div class="field">
+    <%= f.label "Team Name" %><br>
+    <%= f.text_field :team_name %>
+  </div>
+  <div class="field">
     <%= f.label :birthday, :class => :required %><br>
     <%= f.date_select :birthday, :prompt => {:year => 'year', :month => 'month', :day => 'day'}, :start_year => Date.current.year, :end_year => 1920 %>
   </div>

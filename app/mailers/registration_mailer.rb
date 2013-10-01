@@ -3,6 +3,7 @@ class RegistrationMailer < ActionMailer::Base
 
   def confirmation_email(registration)
     @registration = registration
-    mail(:to => @registration.email, :subject => "Journey ticket: PRINT and BRING TO START LINE")
+    mail(:to => @registration.email,
+         :subject => "Journey ticket: PRINT and BRING TO START LINE")
   end
 end

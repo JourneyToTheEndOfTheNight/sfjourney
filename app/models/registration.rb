@@ -16,9 +16,4 @@ class Registration < ActiveRecord::Base
     birthday + 18.years > Date.new(2013, 11, 9)
   end
 
-private
-  def registration_params
-    params.require(:registration).permit(:name, :email, :can_email, :birthday,
-      :address, :city, :state, :zip, :phone)
-  end
 end
