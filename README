@@ -5,14 +5,16 @@ A rails server to manage registrations for the 2013 San Francisco Journey to the
 
 It is set up to use heroku, so stores secrets in environment variables (kept in .env, which is not checked in to the repo).  Environment variables required are:
 SECRET_KEY_BASE
-ADMIN_LOGIN
-ADMIN_PASSWORD
 FACEBOOK_KEY
 FACEBOOK_SECRET
 GOOGLE_KEY
 GOOGLE_SECRET
 TWITTER_KEY
 TWITTER_SECRET
+GMAIL_EMAIL
+GMAIL_DOMAIN
+GMAIL_PASSWORD
+AUTHORIZED_USERS
 
 To run using the same method as will be run on heroku (including environment settings), run:
 RACK_ENV=development PORT=3000 foreman start
