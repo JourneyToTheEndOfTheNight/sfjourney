@@ -5,7 +5,7 @@ class Registration < ActiveRecord::Base
   validates_format_of :email, :with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
 
   def self.max_registrations
-    2000
+    2400
   end
 
   def self.num_remaining
@@ -13,7 +13,7 @@ class Registration < ActiveRecord::Base
   end
 
   def underage?
-    Time.now.year - birthday.year < 18
+    birthday + 18.years > Date.new(2013, 11, 9)
   end
 
 private
