@@ -34,9 +34,22 @@ class ServicesController < ApplicationController
 
   # helper function
   def make_new_account
+    Rails.logger.info session[:authhash].inspect
     @newuser = User.new
-    @newuser.name = session[:authhash][:name]
+    if !session[:authhash].has_key?(:email)
+      flash[:error] = 'Your authentication provider did not give us an email address...please try another login method.'
+      redirect_to root_url
+    end
     @newuser.email = session[:authhash][:email]
+    if session[:authhash].has_key?(:name)
+      @newuser.name = session[:authhash][:name]
+    elsif session[:authhash].has_key?(:fullname)
+      @newuser.name = session[:authhash][:fullname]
+    elsif session[:authhash].has_key?(:nickname)
+      @newuser.name = session[:authhash][:nickname]
+    else
+      @newuser.name = session[:authhash][:email]
+    end
     @newuser.services.build(:provider => session[:authhash][:provider], :uid => session[:authhash][:uid], :uname => session[:authhash][:name], :uemail => session[:authhash][:email])
 
     if @newuser.save!
