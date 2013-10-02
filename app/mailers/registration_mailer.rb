@@ -3,6 +3,7 @@ class RegistrationMailer < ActionMailer::Base
 
   def new_registration_email(registration)
     @registration = registration
+    @num_remaining = Registration.num_remaining
     mail(:to => ENV['GMAIL_EMAIL'],
          :subject => "[journeyreg] #{@registration.name}/#{@registration.team_name}; #{Registration.num_remaining} left")
   end
