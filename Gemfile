@@ -9,6 +9,7 @@ gem 'pg'
 gem 'thin'
 
 gem 'twitter-bootstrap-rails'
+gem 'postmark-rails'
 
 gem 'omniauth'
 gem 'omniauth-openid'
