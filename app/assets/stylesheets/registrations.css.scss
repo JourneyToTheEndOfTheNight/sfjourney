@@ -3,14 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /* make required look required */
-label.required {
+.required {
     color:red;
-}
-label.required:after {
-    content: " (required)";
 }
 
 label.small {
     font-size:small;
-    font-style:italic;
 }
+
+tr td {text-align:left;width:3em;}

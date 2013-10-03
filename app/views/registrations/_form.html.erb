@@ -11,41 +11,46 @@
     </div>
   <% end %>
 
+  <div class="required"><strong>Items in red are required.</strong></div>
+  <br />
   <div class="field">
     <%= f.label :name, :class => :required %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :size => 40 %>
   </div>
   <div class="field">
     <%= f.label :email, :class => :required %><br>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label 'can we email you about future events?', :class => :small %><br>
+    <%= f.label 'Check to receive emails about future events.', :class => :small %><br>
     <%= f.check_box :can_email %>
   </div>
   <div class="field">
-    <%= f.label "Team Name" %><br>
-    <%= f.text_field :team_name %>
+    <%= f.label "Team Name (if any)" %><br>
+    <%= f.text_field :team_name, :size => 40 %>
   </div>
   <div class="field">
     <%= f.label :birthday, :class => :required %><br>
-    <%= f.date_select :birthday, :prompt => {:year => 'year', :month => 'month', :day => 'day'}, :start_year => Date.current.year, :end_year => 1920 %>
+    <%= f.date_select :birthday, :prompt => {:year => 'year', :month => 'month', :day => 'day'},
+                                 :start_year => Date.current.year, :end_year => 1920,
+                                 :order => [:month, :day, :year]  %>
   </div>
   <div class="field">
-    <%= f.label :address, :class => :required %><br>
-    <%= f.text_field :address %>
+    <%= f.label "Street Address", :class => :required %><br>
+    <%= f.text_field :address, :size => 40 %>
   </div>
   <div class="field">
-    <%= f.label :city, :class => :required %><br>
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :state, :class => :required %><br>
-    <%= f.text_field :state %>
-  </div>
-  <div class="field">
-    <%= f.label :zip, :class => :required %><br>
-    <%= f.text_field :zip %>
+    <table>
+    <tr>
+    <td><%= f.label :city, :class => :required %></td>
+    <td><%= f.label :state, :class => :required %></td>
+    <td><%= f.label :zip, :class => :required %></td>
+    </tr><tr>
+    <td><%= f.text_field :city %></td>
+    <td><%= f.text_field :state, :size => 2 %></td>
+    <td><%= f.text_field :zip, :size => 5 %></td>
+    </tr>
+    </table>
   </div>
   <div class="field">
     <%= f.label :phone, :class => :required %><br>
