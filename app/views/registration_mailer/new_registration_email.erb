@@ -3,6 +3,12 @@
   <%= @registration.name %>
   <br /><b>Email:</b>
   <%= @registration.email %>
+  <% if @num_with_same_email > 1 %>
+  <br />DUPLICATE EMAIL! Copy <%= @num_with_same_email %>.
+  <% end %>
+  <% if @num_with_same_team == 1 %>
+  <br />NEW TEAM!  <%= @registration.team_name %>
+  <% end %>
   <br /><b>Team:</b>
   <%= @registration.team_name %>
   <br />Spots remaining: <%= @num_remaining %>
