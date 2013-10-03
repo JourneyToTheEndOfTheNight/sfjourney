@@ -4,11 +4,14 @@
 
 /* make required look required */
 .required {
-    color:red;
+  color:red;
 }
 
 label.small {
-    font-size:small;
+  font-size:small;
 }
 
-tr td {text-align:left;width:3em;}
+tr td {
+  text-align:left;
+  width:3em;
+}

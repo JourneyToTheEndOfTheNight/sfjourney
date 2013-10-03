@@ -1,3 +1,65 @@
+<style type="text/css" media="print">
+
+.noprint {
+  display:none;
+}
+
+@page
+{
+    size: auto;   /* auto is the initial value */
+    /* this affects the margin in the printer settings */
+    margin: 0.25in 0.25in 0.25in 0.25in;
+}
+
+body
+{
+    /* this affects the margin on the content before sending to printer */
+    margin: 0mm; padding: 0.25in;
+}
+
+body {
+  font-size: 0.5em;
+  color: #000000;
+  background-color: #FFFFFF;
+  line-height: 100%;
+}
+
+h2 {
+  color: #000000;
+  background-color: #FFFFFF;
+  font-size: 1.5em;
+  line-height: 150%;
+}
+
+.sign_table {
+  border-collapse:collapse;
+  width:60%;
+}
+
+.sign_table td {
+  padding-left:3em;
+}
+
+.underline {
+  padding-top:3em;
+  border-bottom:1px solid #000;
+}
+
+.name {
+  width:70%;
+}
+
+.spacing {
+  width:10%;
+}
+
+.date {
+  width:20%;
+}
+
+</style>
+
+
 <div class="padded noprint">
 <p>Thank you for registering.</p>
 <p><b>Please print and sign this form, and bring it to Everett Middle School on November 9th by 6pm.
@@ -30,37 +92,38 @@ In consideration of permission and as a requirement of participation in the Come
 
 <p>The Participant hereby grants to the Come Out & Play Festival and those acting with its authority, the right to photograph, videotape, or otherwise capture or collect the Participant’s likeness, voice and sounds (the “Content”) during the Participant’s participation in the Come Out & Play Festival program, event or activity. The Participant further acknowledges the Content to be works made for hire, and otherwise irrevocably assigns and grants to the Come Out & Play Festival all rights in this Content and the right to use or sublicense the Content and the Participant’s name, likeness, and biography, in the Come Out & Play Festival’s discretion, in all media and in all forms and for all purposes, including without limitation, advertising and other promotions for the Come Out & Play Festival, without any further consideration to the Participant or any limitation whatsoever.</p>
 
-<p>THE PARTICIPANT REPRESENTS AND PROMISES that he/she (1) has full authority to execute this document; (2) has fully read this document; and (3) would not have signed this document unless he/she fully understood its intent to bar any future claims against the Released Persons and to protect the Released Persons from any future loss or liability arising out of or resulting from participation in the Come Out & Play Festival.</p>
-</div>
+<p><span>THE PARTICIPANT REPRESENTS AND PROMISES that he/she (1) has full authority to execute this document; (2) has fully read this document; and (3) would not have signed this document unless he/she fully understood its intent to bar any future claims against the Released Persons and to protect the Released Persons from any future loss or liability arising out of or resulting from participation in the Come Out & Play Festival.</span></p>
 
 <% if @registration.underage? %>
-  <div class="waiver">
   <h2>To Be Signed if Participant is under 18 years of Age<br>
   CONSENT AND RELEASE OF PARENT OR GUARDIAN
   </h2>
 
   <p>I am the parent or guardian of <%= @registration.name %> (Child). My child is fit to participate in the Come Out & Play Festival, and I consent to my Child’s participation. I HAVE READ AND I UNDERSTAND THE WAIVER, RELEASE, COVENANT NOT TO SUE AND INDEMNITY AGREEMENT.  In consideration of allowing my Child to participate in the Come Out & Play Festival, I consent to the Waiver, Release, Covenant Not to Sue and Indemnity Agreement and agree that ITS TERMS SHALL LIKEWISE BIND ME, MY CHILD, my heirs, legal representatives, and assignees. I HEREBY RELEASE AND SHALL DEFEND, INDEMNIFY AND HOLD HARMLESS THE RELEASED PERSONS FROM EVERY CLAIM AND ANY LIABILITY that I or my Child may allege against the Released Persons (including attorneys’ fees or costs) as a direct or indirect result of injury to me or my Child because of my Child’s participation in the Come Out & Play Festival, WHETHER CAUSED BY THE NEGLIGENCE OF THE RELEASED PERSONS or others, I PROMISE NOT TO SUE RELEASED PERSONS on behalf of my Child regarding any claim arising from my Child’s participation in activities in the Come Out & Play Festival.</p>
-  </div>
-
-  <table class="sign_table">
-
-    <tr>
-      <td><b>Name of Parent or Guardian</b></td>
-      <td class="underline">_______________________________</td>
-    </tr>
-
-  </table>
 <% end %>
-
+</div>
 <table class="sign_table">
+<% if @registration.underage? %>
   <tr>
-    <td><b>Date</b></td>
-    <td class="underline">_______________________________</td>
+    <td class="underline name"></td>
+    <td class="spacing"></td>
+    <td class="spacing"></td>
   </tr>
-
   <tr>
-    <td valign="bottom"><b>Signature</b></td>
-    <td class="underline">_______________________________</td>
+    <td class="name"><b>Name of Parent or Guardian</b></td>
+    <td class="spacing"></td>
+    <td class="spacing"></td>
+  </tr>
+<% end %>
+  <tr>
+    <td class="underline name"></td>
+    <td class="spacing"></td>
+    <td class="underline date"></td>
+  </tr>
+  <tr>
+    <td class="name" valign="bottom"><b>Signature</b></td>
+    <td class="spacing"></td>
+    <td class="date"><b>Date</b></td>
   </tr>
 </table>
 
@@ -77,37 +140,3 @@ In consideration of permission and as a requirement of participation in the Come
   <br /><b>Phone:</b>
   <%= @registration.phone %>
 </p>
-
-<style type="text/css" media="print">
-
-.noprint {
-  display:none;
-}
-
-body {
-  font-size: 10px;
-}
-
-h2 {
-  font-size: 14px;
-}
-
-.waiver {
-  font-size: 8px;
-}
-
-.sign_table {
-  border-collapse:collapse;
-
-}
-
-.sign_table td {
-  padding-top:20px;
-}
-
-.underline {
-  border-bottom:1px solid #000;
-  width:400px;
-}
-
-</style>
