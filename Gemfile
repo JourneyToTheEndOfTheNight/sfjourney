@@ -10,6 +10,7 @@ gem 'thin'
 
 gem 'twitter-bootstrap-rails'
 gem 'postmark-rails'
+gem 'roadie'
 
 gem 'omniauth'
 gem 'omniauth-openid'
