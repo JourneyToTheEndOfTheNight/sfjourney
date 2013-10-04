@@ -82,7 +82,7 @@ class RegistrationsController < ApplicationController
             RegistrationMailer.confirmation_email(@registration).deliver
             RegistrationMailer.new_registration_email(@registration).deliver
           rescue => e
-            logger.error e.backtrace
+            logger.error e.backtrace.join("\n")
           end
           redirect_to @registration, notice: 'Registration was successfully created.'
         end
