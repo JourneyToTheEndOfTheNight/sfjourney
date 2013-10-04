@@ -18,7 +18,7 @@ class RegistrationMailer < ActionMailer::Base
         :mime_type => "image/png",
         :encoding => "base64"
       }
-      @qr_inline = 'qr.png'
+      @qr_inline = attachments['qr.png'].url
     rescue => e
       logger.error "Error attaching QR code: " + e + e.backtrace.join("\n")
     end
