@@ -127,13 +127,8 @@ In consideration of permission and as a requirement of participation in the Come
   </tr>
 </table>
 
-<div>
-<% if @qr %>
-<div style="position:absolute;right:0px;">
-<%= @qr %>
-</div>
-<% end %>
-<p>
+<table><tr>
+<td>
   <b>Participant's Name:</b>
   <%= @registration.name %>
   <br /><b>Email:</b>
@@ -145,5 +140,11 @@ In consideration of permission and as a requirement of participation in the Come
   <%= @registration.city %>, <%= @registration.state %> <%= @registration.zip %>
   <br /><b>Phone:</b>
   <%= @registration.phone %>
-</p>
-</div>
+</td>
+<% if @qr %>
+<td>
+<%= @qr %>
+</td>
+<% end %>
+  </tr>
+</tr></table>
