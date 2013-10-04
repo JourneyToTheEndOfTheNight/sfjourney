@@ -18,12 +18,22 @@ class Registration < ActiveRecord::Base
 
   def qr_code
     begin
+      return "<img src='data:image/png;base64,#{Base64.encode64(qr_code_data)}' />".html_safe
+    rescue => e
+      logger.error "Error encoding: " + e.to_s + e.backtrace.join("\n")
+    end
+  end
+
+  def qr_code_data
+    begin
       qr_file = "./tmp/qr_#{self.id}.png"
       if not File.exist?(qr_file)
         Qr4r::encode("http://sfjourney.herokuapp.com/r/#{self.id}", qr_file)
       end
+        logger.error "Error encoding QR: " + e.to_s + e.backtrace.join("\n")
       return File.read(qr_file)
     rescue => e
+      logger.error "Error with file: " + e.to_s + e.backtrace.join("\n")
     end
     return nil
   end
