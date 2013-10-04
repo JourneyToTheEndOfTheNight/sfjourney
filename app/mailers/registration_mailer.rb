@@ -12,6 +12,7 @@ class RegistrationMailer < ActionMailer::Base
 
   def confirmation_email(registration)
     @registration = registration
+    @qr = registration.qr_code
     mail(:to => @registration.email,
          :subject => "Journey ticket: PRINT and BRING TO START LINE")
   end

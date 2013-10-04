@@ -127,6 +127,12 @@ In consideration of permission and as a requirement of participation in the Come
   </tr>
 </table>
 
+<div>
+<% if @qr %>
+<div style="position:absolute;right:0px;">
+<%= base64_image(@qr) %>
+</div>
+<% end %>
 <p>
   <b>Participant's Name:</b>
   <%= @registration.name %>
@@ -140,3 +146,4 @@ In consideration of permission and as a requirement of participation in the Come
   <br /><b>Phone:</b>
   <%= @registration.phone %>
 </p>
+</div>

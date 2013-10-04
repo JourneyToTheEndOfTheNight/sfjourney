@@ -13,6 +13,8 @@ Sfjourney::Application.routes.draw do
   match '/auth/:service/callback' => 'services#create', via: [:get, :post]
   match '/auth/failure' => 'services#failure', via: [:get, :post]
 
+  match '/r/:id' => 'registrations#verify', via: [:get, :post]
+
   resources :services, :only => [:index, :create, :destroy] do
     collection do
       get 'signin'

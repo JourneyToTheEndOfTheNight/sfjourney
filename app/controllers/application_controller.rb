@@ -11,11 +11,15 @@ class ApplicationController < ActionController::Base
       @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
     end
 
+    def is_admin?
+      current_user && (ENV['AUTHORIZED_USERS'].include?(current_user.email))
+    end
+
     def require_admin!
       if !current_user
         flash[:error] = 'You need to sign in before accessing this page!'
         redirect_to signin_services_path
-      elsif !(ENV['AUTHORIZED_USERS'].include?(current_user.email))
+      elsif !is_admin?
         flash[:error] = 'Only admins can access this page!'
         redirect_to signin_services_path
       end

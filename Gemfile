@@ -11,6 +11,7 @@ gem 'thin'
 gem 'twitter-bootstrap-rails'
 gem 'postmark-rails'
 gem 'roadie'
+gem 'qr4r'
 
 gem 'omniauth'
 gem 'omniauth-openid'

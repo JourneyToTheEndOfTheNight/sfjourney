@@ -11,7 +11,18 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  # registrations are full
   def full
+  end
+
+  def verify
+    @registration = Registration.find_by_id(params[:id])
+    @qr = @registration.qr_code
+    if is_admin?
+      @registration.checked_in = true;
+      @registration.save!
+    end
+    render action: :show
   end
 
   def export
@@ -42,6 +53,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations/1
   # GET /registrations/1.json
   def show
+    @qr = @registration.qr_code
   end
 
   # GET /registrations/new
@@ -69,7 +81,7 @@ class RegistrationsController < ApplicationController
           begin
             RegistrationMailer.confirmation_email(@registration).deliver
             RegistrationMailer.new_registration_email(@registration).deliver
-          rescue Exception => e
+          rescue => e
             logger.error e.backtrace
           end
           redirect_to @registration, notice: 'Registration was successfully created.'
