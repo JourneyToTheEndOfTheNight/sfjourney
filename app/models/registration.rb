@@ -30,7 +30,6 @@ class Registration < ActiveRecord::Base
       if not File.exist?(qr_file)
         Qr4r::encode("http://sfjourney.herokuapp.com/r/#{self.id}", qr_file)
       end
-        logger.error "Error encoding QR: " + e.to_s + e.backtrace.join("\n")
       return File.read(qr_file)
     rescue => e
       logger.error "Error with file: " + e.to_s + e.backtrace.join("\n")
