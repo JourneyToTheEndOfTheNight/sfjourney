@@ -12,7 +12,16 @@ class RegistrationMailer < ActionMailer::Base
 
   def confirmation_email(registration)
     @registration = registration
-    @qr = registration.qr_code
+    begin
+      attachments.inline['qr.png'] = {
+        :data => File.read(registration.qr_file),
+        :mime_type => "image/png",
+        :encoding => "base64"
+      }
+      @qr_inline = 'qr.png'
+    rescue => e
+      logger.error "Error attaching QR code: " + e + e.backtrace.join("\n")
+    end
     mail(:to => @registration.email,
          :subject => "Journey ticket: PRINT and BRING TO START LINE")
   end
