@@ -24,9 +24,12 @@ class Registration < ActiveRecord::Base
     end
   end
 
+  def qr_file
+    "./tmp/qr_#{self.id}.png"
+  end
+
   def qr_code_data
     begin
-      qr_file = "./tmp/qr_#{self.id}.png"
       if not File.exist?(qr_file)
         Qr4r::encode("http://sfjourney.herokuapp.com/r/#{self.id}", qr_file)
       end
