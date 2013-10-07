@@ -1,6 +1,6 @@
 class Registration < ActiveRecord::Base
   belongs_to :user
-  validates_presence_of :name, :email, :can_email, :birthday,
+  validates_presence_of :name, :email, :birthday,
     :address, :city, :state, :zip, :phone
   validates_format_of :email, :with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
 
