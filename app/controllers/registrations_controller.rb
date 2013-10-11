@@ -17,12 +17,12 @@ class RegistrationsController < ApplicationController
 
   def verify
     @registration = Registration.find_by_id(params[:id])
-    @qr = @registration.qr_code
+    #@qr = @registration.qr_code
     if is_admin?
       @registration.checked_in = true;
       @registration.save!
     end
-    render action: :show
+    redirect_to "/registrations/#{@registration.id}"
   end
 
   def export
@@ -53,6 +53,9 @@ class RegistrationsController < ApplicationController
   # GET /registrations/1
   # GET /registrations/1.json
   def show
+    if @registration.user != current_user
+      redirect_to '/registrations'
+    end
     @qr = @registration.qr_code
   end
 
@@ -97,6 +100,9 @@ class RegistrationsController < ApplicationController
   # DELETE /registrations/1
   # DELETE /registrations/1.json
   def destroy
+    if @registration.user != current_user
+      redirect_to '/registrations'
+    end
     @registration.destroy
     respond_to do |format|
       format.html { redirect_to registrations_url }
