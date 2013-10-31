@@ -5,11 +5,21 @@ class Registration < ActiveRecord::Base
   validates_format_of :email, :with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
 
   def self.max_registrations
-    2400
+    3000
   end
 
   def self.num_remaining
     self.max_registrations - Registration.count
+  end
+
+  def has_duplicate
+
+  end
+
+  def equals(registration)
+    self.name == registration.name &&
+    self.email == registration.email &&
+    self.birthday == registration.birthday
   end
 
   def underage?

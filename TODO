@@ -1,3 +1,4 @@
+* remove duplicates (pop up warning message/do not accept duplicate registrations)
 * ability to generate fake new registration easily for admin user
 * improve clarity/flow for people coming to the site?
 * add more info for new people landing on the site
