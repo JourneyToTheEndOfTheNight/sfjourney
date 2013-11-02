@@ -4,7 +4,7 @@ class RegistrationsController < ApplicationController
   before_action :require_admin!, only: [:export]
 
   def landing
-    @num_remaining = Registration.num_remaining
+    @num_remaining = Registration.display_num_remaining
 
     if user_signed_in?
       redirect_to '/registrations'

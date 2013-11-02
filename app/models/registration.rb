@@ -12,6 +12,20 @@ class Registration < ActiveRecord::Base
     self.max_registrations - Registration.count
   end
 
+  def self.display_num_remaining
+    actually_remaining = self.num_remaining
+    aim_for = 100
+    if (actually_remaining > aim_for)
+      fishy_remaining = actually_remaining % aim_for
+      if fishy_remaining < aim_for/2
+        fishy_remaining += aim_for/2
+      end
+      return fishy_remaining
+    else
+      return actually_remaining
+    end
+  end
+
   def has_duplicate
 
   end
