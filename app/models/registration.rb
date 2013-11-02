@@ -14,7 +14,7 @@ class Registration < ActiveRecord::Base
 
   def self.display_num_remaining
     actually_remaining = self.num_remaining
-    aim_for = 100
+    aim_for = 130
     if (actually_remaining > aim_for)
       fishy_remaining = actually_remaining % aim_for
       if fishy_remaining < aim_for/2
