@@ -40,6 +40,10 @@ class Registration < ActiveRecord::Base
     birthday + 18.years > Date.new(2013, 11, 9)
   end
 
+  def age
+    ((Date.new(2013, 11, 9) - birthday)/365.0).to_i
+  end
+
   def qr_code
     begin
       return "<img src='data:image/png;base64,#{Base64.encode64(qr_code_data)}' />".html_safe
