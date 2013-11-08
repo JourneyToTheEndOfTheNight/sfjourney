@@ -5,7 +5,7 @@ class Registration < ActiveRecord::Base
   validates_format_of :email, :with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
 
   def self.max_registrations
-    3300
+    3400
   end
 
   def self.num_remaining
