@@ -22,7 +22,7 @@ class Registration < ActiveRecord::Base
       end
       return fishy_remaining
     else
-      return actually_remaining
+      return [actually_remaining, 0].max
     end
   end
 

@@ -46,7 +46,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations.json
   def index
     @registrations = current_user.registrations
-    if @registrations.length == 0
+    if @registrations.length <= 0
       redirect_to '/registrations/new'
     end
   end
