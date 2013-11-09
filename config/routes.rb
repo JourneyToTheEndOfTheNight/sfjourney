@@ -5,6 +5,7 @@ Sfjourney::Application.routes.draw do
   get "tos" => 'tos#show'
   get "privacy" => 'privacy#show'
   get "export" => 'registrations#export'
+  get "waiver" => 'registrations#blank_waiver'
 
   # Omniauth pure
   match "/signin" => "services#signin", via: [:get, :post]

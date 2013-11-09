@@ -15,6 +15,13 @@ class RegistrationsController < ApplicationController
   def full
   end
 
+  def blank_waiver
+    if !is_admin?
+      redirect_to "/registrations"
+    end
+    @underage = params[:underage]
+  end
+
   def verify
     @registration = Registration.find_by_id(params[:id])
     #@qr = @registration.qr_code
