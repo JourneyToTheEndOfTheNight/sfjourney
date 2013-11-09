@@ -26,7 +26,13 @@ class RegistrationsController < ApplicationController
   end
 
   def export
-    if params[:all_fields]
+    if params[:reg_email]
+      @registrations = Registration.all
+      csv_string = "\"name\",\"email\"\n"
+      @registrations.each do |u|
+        csv_string += "\"#{u.name}\",\"#{u.email}\"\n"
+      end
+    elsif params[:all_fields]
       @registrations = Registration.all
       csv_string = "\"user_id\",\"name\",\"email\",\"team_name\",\"age\",\"signup_timestamp\",\"address\",\"city\",\"state\",\"zip\",\"phone\"\n"
       @registrations.each do |u|
