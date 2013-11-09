@@ -62,40 +62,43 @@ class RegistrationsController < ApplicationController
 
   # GET /registrations/new
   def new
-    if Registration.num_remaining <= 0 && !current_user.friend_space?
-      redirect_to '/registrations/full'
-    end
-    @registration = Registration.new(:name => current_user.name,
-                                     :email => current_user.email,
-                                     :can_email => true)
+    redirect_to '/registrations/full'
+    # if Registration.num_remaining <= 0 && !current_user.friend_space?
+    #   redirect_to '/registrations/full'
+    # end
+    # @registration = Registration.new(:name => current_user.name,
+    #                                  :email => current_user.email,
+    #                                  :can_email => true)
   end
 
   # POST /registrations
   # POST /registrations.json
   def create
-    if Registration.num_remaining <= 0 && !current_user.friend_space?
-      redirect_to '/registrations/full'
-    end
-    @registration = Registration.new(registration_params)
-    @registration.user = current_user
+    redirect_to '/registrations/full'
 
-    respond_to do |format|
-      if @registration.save
-        format.html do
-          begin
-            RegistrationMailer.confirmation_email(@registration).deliver
-            RegistrationMailer.new_registration_email(@registration).deliver
-          rescue => e
-            logger.error "Error sending email" + e.to_s + e.backtrace.join("\n")
-          end
-          redirect_to @registration, notice: 'Registration was successfully created.'
-        end
-        format.json { render action: 'show', status: :created, location: @registration }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @registration.errors, status: :unprocessable_entity }
-      end
-    end
+    # if Registration.num_remaining <= 0 && !current_user.friend_space?
+    #   redirect_to '/registrations/full'
+    # end
+    # @registration = Registration.new(registration_params)
+    # @registration.user = current_user
+
+    # respond_to do |format|
+    #   if @registration.save
+    #     format.html do
+    #       begin
+    #         RegistrationMailer.confirmation_email(@registration).deliver
+    #         RegistrationMailer.new_registration_email(@registration).deliver
+    #       rescue => e
+    #         logger.error "Error sending email" + e.to_s + e.backtrace.join("\n")
+    #       end
+    #       redirect_to @registration, notice: 'Registration was successfully created.'
+    #     end
+    #     format.json { render action: 'show', status: :created, location: @registration }
+    #   else
+    #     format.html { render action: 'new' }
+    #     format.json { render json: @registration.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /registrations/1
