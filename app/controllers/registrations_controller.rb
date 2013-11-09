@@ -27,7 +27,7 @@ class RegistrationsController < ApplicationController
 
   def export
     if params[:reg_email]
-      @registrations = Registration.all
+      @registrations = Registration.all.uniq {|u| u.email}
       csv_string = "\"name\",\"email\"\n"
       @registrations.each do |u|
         csv_string += "\"#{u.name}\",\"#{u.email}\"\n"
