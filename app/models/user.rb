@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :registrations
 
   def friend_space?
-    ENV['FRIENDS'].include?(email) && registrations.count < 2
+    email && ENV['FRIENDS'].include?(email) && registrations.count < 2
   end
 
 

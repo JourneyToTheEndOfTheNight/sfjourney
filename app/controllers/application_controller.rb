@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     end
 
     def is_admin?
-      current_user && (ENV['AUTHORIZED_USERS'].include?(current_user.email))
+      current_user && current_user.email && (ENV['AUTHORIZED_USERS'].include?(current_user.email))
     end
 
     def require_admin!
