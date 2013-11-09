@@ -62,7 +62,7 @@ class RegistrationsController < ApplicationController
 
   # GET /registrations/new
   def new
-    if Registration.num_remaining <= 0
+    if Registration.num_remaining <= 0 && !current_user.friend_space?
       redirect_to '/registrations/full'
     end
     @registration = Registration.new(:name => current_user.name,
@@ -73,7 +73,7 @@ class RegistrationsController < ApplicationController
   # POST /registrations
   # POST /registrations.json
   def create
-    if Registration.num_remaining <= 0
+    if Registration.num_remaining <= 0 && !current_user.friend_space?
       redirect_to '/registrations/full'
     end
     @registration = Registration.new(registration_params)
