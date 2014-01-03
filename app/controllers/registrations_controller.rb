@@ -28,9 +28,9 @@ class RegistrationsController < ApplicationController
   def export
     @registrations = Registration.where('can_email', true).uniq#group(:email)
     if params[:all_fields]
-      csv_string = "\"name\",\"email\",\"team_name\",\"birthday\",\"address\",\"city\",\"state\",\"zip\",\"phone\"\n"
+      csv_string = "\"id\",\"name\",\"email\",\"team_name\",\"birthday\",\"address\",\"city\",\"state\",\"zip\",\"phone\"\n"
       @registrations.each do |u|
-        csv_string += "\"#{u.name}\",\"#{u.email}\",\"#{u.team_name}\",\"#{u.birthday.strftime("%m/%d/%Y") if u.birthday}\",\"#{u.address}\",\"#{u.city}\",\"#{u.state}\",\"#{u.zip}\",\"#{u.phone}\"\n"
+        csv_string += "#{u.id},\"#{u.name}\",\"#{u.email}\",\"#{u.team_name}\",\"#{u.birthday.strftime("%m/%d/%Y") if u.birthday}\",\"#{u.address}\",\"#{u.city}\",\"#{u.state}\",\"#{u.zip}\",\"#{u.phone}\"\n"
       end
     else
       csv_string = "\"name\",\"email\"\n"
