@@ -44,6 +44,7 @@ class RegistrationsController < ApplicationController
       csv_string = "\"user_id\",\"id\",\"name\",\"email\",\"team_name\",\"age\",\"signup_timestamp\",\"address\",\"city\",\"state\",\"zip\",\"phone\"\n"
       @registrations.each do |u|
         csv_string += "#{u.user_id},#{u.id},\"#{u.name}\",\"#{u.email}\",\"#{u.team_name}\",#{u.age if u.birthday},#{u.created_at.to_i},\"#{u.address}\",\"#{u.city}\",\"#{u.state}\",\"#{u.zip}\",\"#{u.phone}\"\n"
+      end
     else
       @registrations = Registration.where('can_email', true).uniq#group(:email)
       csv_string = "\"name\",\"email\"\n"
