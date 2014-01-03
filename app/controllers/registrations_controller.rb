@@ -15,6 +15,13 @@ class RegistrationsController < ApplicationController
   def full
   end
 
+  def blank_waiver
+    if !is_admin?
+      redirect_to "/registrations"
+    end
+    @underage = params[:underage]
+  end
+
   def verify
     @registration = Registration.find_by_id(params[:id])
     #@qr = @registration.qr_code
@@ -26,13 +33,19 @@ class RegistrationsController < ApplicationController
   end
 
   def export
-    @registrations = Registration.where('can_email', true).uniq#group(:email)
-    if params[:all_fields]
-      csv_string = "\"id\",\"name\",\"email\",\"team_name\",\"birthday\",\"address\",\"city\",\"state\",\"zip\",\"phone\"\n"
+    if params[:reg_email]
+      @registrations = Registration.all.uniq {|u| u.email}
+      csv_string = "\"name\",\"email\"\n"
       @registrations.each do |u|
-        csv_string += "#{u.id},\"#{u.name}\",\"#{u.email}\",\"#{u.team_name}\",\"#{u.birthday.strftime("%m/%d/%Y") if u.birthday}\",\"#{u.address}\",\"#{u.city}\",\"#{u.state}\",\"#{u.zip}\",\"#{u.phone}\"\n"
+        csv_string += "\"#{u.name}\",\"#{u.email}\"\n"
       end
+    elsif params[:all_fields]
+      @registrations = Registration.all
+      csv_string = "\"user_id\",\"id\",\"name\",\"email\",\"team_name\",\"age\",\"signup_timestamp\",\"address\",\"city\",\"state\",\"zip\",\"phone\"\n"
+      @registrations.each do |u|
+        csv_string += "#{u.user_id},#{u.id},\"#{u.name}\",\"#{u.email}\",\"#{u.team_name}\",#{u.age if u.birthday},#{u.created_at.to_i},\"#{u.address}\",\"#{u.city}\",\"#{u.state}\",\"#{u.zip}\",\"#{u.phone}\"\n"
     else
+      @registrations = Registration.where('can_email', true).uniq#group(:email)
       csv_string = "\"name\",\"email\"\n"
       @registrations.each do |u|
         csv_string += "\"#{u.name}\",\"#{u.email}\"\n"
@@ -45,7 +58,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations.json
   def index
     @registrations = current_user.registrations
-    if @registrations.length == 0
+    if @registrations.length <= 0
       redirect_to '/registrations/new'
     end
   end
@@ -61,7 +74,7 @@ class RegistrationsController < ApplicationController
 
   # GET /registrations/new
   def new
-    if Registration.num_remaining <= 0
+    if Registration.num_remaining <= 0 && !current_user.friend_space?
       redirect_to '/registrations/full'
     end
     @registration = Registration.new(:name => current_user.name,
@@ -72,7 +85,7 @@ class RegistrationsController < ApplicationController
   # POST /registrations
   # POST /registrations.json
   def create
-    if Registration.num_remaining <= 0
+    if Registration.num_remaining <= 0 && !current_user.friend_space?
       redirect_to '/registrations/full'
     end
     @registration = Registration.new(registration_params)

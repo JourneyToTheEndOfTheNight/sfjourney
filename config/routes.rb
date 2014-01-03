@@ -1,10 +1,18 @@
 Sfjourney::Application.routes.draw do
+  get "donations/donate"
+  get "donations/donated"
+  get "donations/cancelled"
+  get "/donate" => "donations#donate"
+  get "/donated" => "donations#donated"
+  get "/canceled_donation" => "donations#canceled"
+
   get "registrations/full" => 'registrations#full'
   resources :registrations, :only => [:index, :create, :destroy, :show, :new]
 
   get "tos" => 'tos#show'
   get "privacy" => 'privacy#show'
   get "export" => 'registrations#export'
+  get "waiver" => 'registrations#blank_waiver'
 
   # Omniauth pure
   match "/signin" => "services#signin", via: [:get, :post]
@@ -25,7 +33,8 @@ Sfjourney::Application.routes.draw do
     end
   end
 
-  root "registrations#landing"
+  #root "registrations#landing"
+  root "donations#donate"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -22,7 +22,7 @@ class Registration < ActiveRecord::Base
       end
       return fishy_remaining
     else
-      return actually_remaining
+      return [actually_remaining, 0].max
     end
   end
 
@@ -38,6 +38,10 @@ class Registration < ActiveRecord::Base
 
   def underage?
     birthday + 18.years > Date.new(2013, 11, 9)
+  end
+
+  def age
+    ((Date.new(2013, 11, 9) - birthday)/365.0).to_i
   end
 
   def qr_code
