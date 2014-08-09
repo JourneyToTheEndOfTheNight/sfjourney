@@ -1,15 +1,17 @@
+#    require 'securerandom'
 class Registration < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
   validates_presence_of :name, :email, :birthday,
     :address, :city, :state, :zip, :phone
   validates_format_of :email, :with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
+  before_create :add_token
 
-  def self.new_token
-    require 'securerandom'
+  def add_token
     begin
-      random_string = SecureRandom.hex.upcase[0..5]
-    end while Registration.find_by_token(random_string) != nil
+      new_token = SecureRandom.hex.upcase[0..5].gsub('O','0').gsub(/IL/,'1').gsub(/S/,'5').gsub(/B/,'8')
+    end while Registration.find_by_token(new_token) != nil
+    self.token = new_token
   end
 
   def has_duplicate
@@ -28,7 +30,7 @@ class Registration < ActiveRecord::Base
   end
 
   def age
-    ((Date.new(2013, 11, 9) - birthday)/365.0).to_i
+    ((game.starts_at - birthday)/365.0).to_i
   end
 
   def qr_code

@@ -14,7 +14,7 @@ class RegistrationsController < ApplicationController
   # registrations are full
   def full
     false
-    # current_game.num_remaining <= 0 && !current_user.friend_space?(current_game.id)
+    # current_game.num_remaining <= 0 && !current_user.friend_space?(current_game)
   end
 
   def blank_waiver
@@ -59,7 +59,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations
   # GET /registrations.json
   def index
-    @registrations = current_user.registrations
+    @registrations = current_user.registrations_for(current_game)
     if @registrations.length <= 0
       redirect_to '/registrations/new'
     end
@@ -76,6 +76,10 @@ class RegistrationsController < ApplicationController
 
   # GET /registrations/new
   def new
+    registrations = current_user.registrations_for(current_game)
+    if registrations.length > 0
+      redirect_to '/registrations'
+    end
     if full
       redirect_to '/registrations/full'
     end
@@ -91,7 +95,11 @@ class RegistrationsController < ApplicationController
       redirect_to '/registrations/full'
     end
     @registration = Registration.new(registration_params)
+    @registration.game = current_game
     @registration.user = current_user
+    @registration.ip_address = request.remote_ip
+    @registration.user_agent = request.user_agent
+    @registration.referrer = cookies[:referrer]
 
     respond_to do |format|
       if @registration.save

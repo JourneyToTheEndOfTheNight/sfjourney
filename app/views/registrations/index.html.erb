@@ -1,5 +1,5 @@
-<h2>Journey will start at Everett Middle School on Saturday November 9th.
-  <br />Please bring your printed and signed waiver by 6pm so that we can start the game at 7.</h2>
+<h2>Journey will start at <%= current_game.start_location %> on <%= current_game.local_starts_at.strftime("%A %B %d") %>.
+  <br />Please bring your printed and signed waiver by <%= current_game.local_starts_at.strftime("%l%P") %> so that you receive your materials in time to start.</h2>
 
 <br/><h3>To keep up to date on pre-game and during-game notifications, follow <a href="https://twitter.com/jtteotn">@jtteotn</a> on twitter.</h3>
 
@@ -29,6 +29,4 @@
 
 <br>
 
-<h3>You can also fill out the registration form for other players coming with you. Remember, each player must register and bring their printed and signed waiver!</h3>
-
-<%= link_to 'Register Another Player', new_registration_path %>
+<h3>Remember, each player must register and bring their own waiver!</h3>

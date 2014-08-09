@@ -5,10 +5,18 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   helper_method :user_signed_in?
-
   helper_method :current_game
 
+  before_action :set_referrer
+
   private
+    def set_referrer
+      cookies[:referrer] ||= request.referer
+      if current_user && !current_user.referrer
+        current_user.update_attributes!(:referrer => cookies[:referrer])
+      end
+    end
+
     def current_user
       @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
     end

@@ -1,6 +1,6 @@
 <section id="services_signin" class="services">
   <h1>Journey to the End of the Night</h1>
-  <h2>Saturday November 9, 2013: 6pm</h2>
+  <h2><%= current_game.local_starts_at.strftime("%A %B %d, %Y") %>: 6pm</h2>
 
   <% if @num_remaining > 0 %>
   <h2>You will need to register in order to play!  <%= @num_remaining %> spots left.</h2>

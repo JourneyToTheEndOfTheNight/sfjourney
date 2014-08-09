@@ -11,16 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808020001) do
+ActiveRecord::Schema.define(version: 20140809071822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: true do |t|
     t.string   "name"
-    t.date     "starts_at"
+    t.datetime "starts_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "timezone",       default: "America/Los_Angeles"
+    t.string   "start_location"
   end
 
   create_table "registrations", force: true do |t|
@@ -42,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140808020001) do
     t.string   "token",      limit: 6
     t.text     "user_agent"
     t.string   "ip_address", limit: 12
+    t.text     "referrer"
   end
 
   add_index "registrations", ["game_id", "email"], name: "index_registrations_on_game_id_and_email", using: :btree
@@ -66,6 +69,7 @@ ActiveRecord::Schema.define(version: 20140808020001) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "referrer"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
