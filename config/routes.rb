@@ -33,8 +33,11 @@ Sfjourney::Application.routes.draw do
     end
   end
 
-  #root "registrations#landing"
-  root "donations#donate"
+  if Rails.env == 'production'
+    root "donations#donate"
+  else
+    root "registrations#landing"
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
