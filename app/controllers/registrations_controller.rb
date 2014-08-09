@@ -4,7 +4,7 @@ class RegistrationsController < ApplicationController
   before_action :require_admin!, only: [:export]
 
   def landing
-    @num_remaining = Registration.display_num_remaining
+    @num_remaining = current_game.display_num_remaining
 
     if user_signed_in?
       redirect_to '/registrations'
@@ -13,6 +13,8 @@ class RegistrationsController < ApplicationController
 
   # registrations are full
   def full
+    false
+    # current_game.num_remaining <= 0 && !current_user.friend_space?(current_game.id)
   end
 
   def blank_waiver
@@ -23,8 +25,7 @@ class RegistrationsController < ApplicationController
   end
 
   def verify
-    @registration = Registration.find_by_id(params[:id])
-    #@qr = @registration.qr_code
+    @registration = Registration.find(:game_id => params[:game_id], :token => params[:registration_token])
     if is_admin?
       @registration.checked_in = true;
       @registration.save!
@@ -34,19 +35,19 @@ class RegistrationsController < ApplicationController
 
   def export
     if params[:reg_email]
-      @registrations = Registration.all.uniq {|u| u.email}
+      @registrations = current_game.registrations.uniq {|u| u.email}
       csv_string = "\"name\",\"email\"\n"
       @registrations.each do |u|
         csv_string += "\"#{u.name}\",\"#{u.email}\"\n"
       end
     elsif params[:all_fields]
-      @registrations = Registration.all.includes(user: [:services])
+      @registrations = current_game.registrations.includes(user: [:services])
       csv_string = "\"user_id\",\"id\",\"services\",\"name\",\"email\",\"team_name\",\"age\",\"birthday\",\"signup_timestamp\",\"address\",\"city\",\"state\",\"zip\",\"phone\"\n"
       @registrations.each do |u|
         csv_string += "#{u.user_id},#{u.id},\"#{u.user.services.map {|s| s.provider}.join(";")}\",\"#{u.name}\",\"#{u.email}\",\"#{u.team_name}\",#{u.age if u.birthday},#{u.birthday},#{u.created_at.to_i},\"#{u.address}\",\"#{u.city}\",\"#{u.state}\",\"#{u.zip}\",\"#{u.phone}\"\n"
       end
     else
-      @registrations = Registration.where('can_email', true).uniq#group(:email)
+      @registrations = current_game.registrations.where('can_email', true).uniq#group(:email)
       csv_string = "\"name\",\"email\"\n"
       @registrations.each do |u|
         csv_string += "\"#{u.name}\",\"#{u.email}\"\n"
@@ -75,7 +76,7 @@ class RegistrationsController < ApplicationController
 
   # GET /registrations/new
   def new
-    if Registration.num_remaining <= 0 && !current_user.friend_space?
+    if full
       redirect_to '/registrations/full'
     end
     @registration = Registration.new(:name => current_user.name,
@@ -86,7 +87,7 @@ class RegistrationsController < ApplicationController
   # POST /registrations
   # POST /registrations.json
   def create
-    if Registration.num_remaining <= 0 && !current_user.friend_space?
+    if full
       redirect_to '/registrations/full'
     end
     @registration = Registration.new(registration_params)

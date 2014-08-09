@@ -1,43 +1,30 @@
 class Registration < ActiveRecord::Base
   belongs_to :user
+  belongs_to :game
   validates_presence_of :name, :email, :birthday,
     :address, :city, :state, :zip, :phone
   validates_format_of :email, :with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
 
-  def self.max_registrations
-    3000
-  end
-
-  def self.num_remaining
-    self.max_registrations - Registration.count
-  end
-
-  def self.display_num_remaining
-    actually_remaining = self.num_remaining
-    aim_for = 130
-    if (actually_remaining > aim_for)
-      fishy_remaining = actually_remaining % aim_for
-      if fishy_remaining < aim_for/2
-        fishy_remaining += aim_for/2
-      end
-      return fishy_remaining
-    else
-      return [actually_remaining, 0].max
-    end
+  def self.new_token
+    require 'securerandom'
+    begin
+      random_string = SecureRandom.hex.upcase[0..5]
+    end while Registration.find_by_token(random_string) != nil
   end
 
   def has_duplicate
-
+    # TODO: look for similar
   end
 
   def equals(registration)
+    self.game_id == registration.game_id &&
     self.name == registration.name &&
     self.email == registration.email &&
     self.birthday == registration.birthday
   end
 
   def underage?
-    birthday + 18.years > Date.new(2013, 11, 9)
+    birthday + 18.years > game.starts_at
   end
 
   def age
@@ -59,7 +46,7 @@ class Registration < ActiveRecord::Base
   def qr_code_data
     begin
       if not File.exist?(qr_file)
-        Qr4r::encode("http://sfjourney.herokuapp.com/r/#{self.id}", qr_file)
+        Qr4r::encode("http://sfjourney.herokuapp.com/r/#{self.game_id}/#{self.token}", qr_file)
       end
       return File.read(qr_file)
     rescue => e

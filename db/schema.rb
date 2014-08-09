@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131004000011) do
+ActiveRecord::Schema.define(version: 20140808020001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "games", force: true do |t|
+    t.string   "name"
+    t.date     "starts_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "registrations", force: true do |t|
     t.integer  "user_id"
@@ -30,11 +37,16 @@ ActiveRecord::Schema.define(version: 20131004000011) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "team_name"
-    t.boolean  "checked_in", default: false
+    t.boolean  "checked_in",            default: false
+    t.integer  "game_id"
+    t.string   "token",      limit: 6
+    t.text     "user_agent"
+    t.string   "ip_address", limit: 12
   end
 
-  add_index "registrations", ["email"], name: "index_registrations_on_email", using: :btree
-  add_index "registrations", ["team_name"], name: "index_registrations_on_team_name", using: :btree
+  add_index "registrations", ["game_id", "email"], name: "index_registrations_on_game_id_and_email", using: :btree
+  add_index "registrations", ["game_id", "token"], name: "index_registrations_on_game_id_and_token", unique: true, using: :btree
+  add_index "registrations", ["user_id"], name: "index_registrations_on_user_id", using: :btree
 
   create_table "services", force: true do |t|
     t.integer  "user_id"
