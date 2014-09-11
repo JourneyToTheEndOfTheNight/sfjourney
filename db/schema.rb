@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140809071822) do
+ActiveRecord::Schema.define(version: 20140911195808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20140809071822) do
     t.integer  "game_id"
     t.string   "token",      limit: 6
     t.text     "user_agent"
-    t.string   "ip_address", limit: 12
+    t.string   "ip_address", limit: 15
     t.text     "referrer"
   end
 
