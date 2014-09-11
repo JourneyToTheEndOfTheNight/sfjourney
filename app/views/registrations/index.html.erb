@@ -3,7 +3,7 @@
 
 <br/><h3>To keep up to date on pre-game and during-game notifications, follow <a href="https://twitter.com/jtteotn">@jtteotn</a> on twitter.</h3>
 
-<br/><h3>You may reprint your waivers or unregister below:</h3>
+<br/><h3>You may reprint your waiver below. If you need to correct your information, please contact us.</h3>
 
 <table>
   <thead>
@@ -21,7 +21,10 @@
         <td><%= registration.email %></td>
         <td><%= registration.team_name %></td>
         <td><%= link_to 'Reprint', registration %></td>
+        <!--
+        <td><%= link_to 'Edit', edit_registration_path(:id => registration.id) %></td>
         <td><%= link_to 'Unregister', registration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        -->
       </tr>
     <% end %>
   </tbody>
@@ -30,3 +33,5 @@
 <br>
 
 <h3>Remember, each player must register and bring their own waiver!</h3>
+
+<%= render "donations/donate_form" %>

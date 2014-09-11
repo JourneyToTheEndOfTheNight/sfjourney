@@ -1,12 +1,12 @@
-* make registrations event-specific
-
-* edit existing registration?
-
-
+* fix square cash donate button
 * remove duplicates (pop up warning message/do not accept duplicate registrations)
+* account merging (with confirm) via settings
 * ability to generate fake new registration easily for admin user
+
 * improve clarity/flow for people coming to the site?
 * add more info for new people landing on the site
 * add rules?
-* account merging (with confirm) via settings
 
+
+== Later ==
+* allow registrations for multiple events at once: specify the game id in most registration actions

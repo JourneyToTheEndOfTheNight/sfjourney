@@ -68,7 +68,14 @@ class RegistrationsController < ApplicationController
   # GET /registrations/1
   # GET /registrations/1.json
   def show
-    if @registration.user != current_user
+    if @registration.user != current_user && !is_admin?
+      redirect_to '/registrations'
+    end
+    @qr = @registration.qr_code
+  end
+
+  def edit
+    if @registration.user != current_user && !is_admin?
       redirect_to '/registrations'
     end
     @qr = @registration.qr_code
