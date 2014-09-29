@@ -1,4 +1,5 @@
 * fix square cash donate button
+* Change registration in the future to make unregistering just mark as deleted
 * remove duplicates (pop up warning message/do not accept duplicate registrations)
 * account merging (with confirm) via settings
 * ability to generate fake new registration easily for admin user

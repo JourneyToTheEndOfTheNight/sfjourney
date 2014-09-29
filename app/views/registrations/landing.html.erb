@@ -2,13 +2,12 @@
   <h1>Journey to the End of the Night</h1>
   <h2><%= current_game.local_starts_at.strftime("%A %B %d, %Y") %>: 6pm</h2>
 
-  <% if @num_remaining > 0 %>
-  <h2>You will need to register in order to play!  <%= @num_remaining %> spots left.</h2>
-  <p>First, sign in using Facebook, Twitter, Google, or OpenID. Please select the provider you want to use:
+  <h2>You will need to register in order to play!</h2>
+  <p>First, sign in using Facebook, Google, or OpenID. Please select the provider you want to use:
   </p>
-  <% else %>
+  <% if false %>
   <h2>Unfortunately, registration is full. But you can still come to many other games at <a href='http://comeoutandplaysf.org'>Come Out and Play</a>!</h2>
-  <p>If you have already registered, sign in using Facebook, Twitter, Google, or OpenID. Please select the provider you want to use:
+  <p>If you have already registered, sign in using Facebook, Google, or OpenID. Please select the provider you want to use:
   </p>
   <% end %>
 
