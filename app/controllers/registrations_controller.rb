@@ -113,7 +113,9 @@ class RegistrationsController < ApplicationController
         format.html do
           begin
             RegistrationMailer.confirmation_email(@registration).deliver
-            RegistrationMailer.new_registration_email(@registration).deliver
+            if @registration.game.registrations.length % 100 == 0
+              RegistrationMailer.new_registration_email(@registration).deliver
+            end
           rescue => e
             logger.error "Error sending email" + e.to_s + e.backtrace.join("\n")
           end

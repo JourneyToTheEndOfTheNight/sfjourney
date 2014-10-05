@@ -3,9 +3,9 @@ class RegistrationMailer < ActionMailer::Base
 
   def new_registration_email(registration)
     @registration = registration
-    @num_remaining = registration.game.num_remaining
+    @num_registered = registration.game.registrations.count
     mail(:to => ENV['GMAIL_EMAIL'],
-         :subject => "[journeyreg] #{@registration.name}/#{@registration.team_name}; #{@num_remaining} left")
+         :subject => "[journeyreg] #{@registration.name}/#{@registration.team_name}; #{@num_registered} registered")
   end
 
   def confirmation_email(registration)
