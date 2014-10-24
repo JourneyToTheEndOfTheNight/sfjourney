@@ -6,6 +6,8 @@ Sfjourney::Application.routes.draw do
   get "/donated" => "donations#donated"
   get "/canceled_donation" => "donations#canceled"
 
+  get "/graph" => "registrations#graph"
+
   get "registrations/full" => 'registrations#full'
   resources :registrations, :only => [:index, :create, :destroy, :show, :new, :edit]
 
