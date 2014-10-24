@@ -144,7 +144,7 @@ class RegistrationsController < ApplicationController
 
   def graph
     ts = current_game.registrations.pluck(:created_at).map {|t| t.to_i}.sort
-    @data = ts.each_with_index.map {|ts, i| {'ts' => ts, 'timestr' => Time.at(ts).strftime("%m/%d %H:%M:%S"), 'registered' => i}}
+    @data = ts.each_with_index.map {|ts, i| {'ts' => ts * 1000, 'timestr' => Time.at(ts).strftime("%m/%d %H:%M:%S"), 'registered' => i}}
   end
 
   private

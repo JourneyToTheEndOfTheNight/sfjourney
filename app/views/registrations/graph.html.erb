@@ -16,7 +16,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
 var xValue = function(d) { return d['ts'];}, // data -> value
     xScale = d3.time.scale().range([0, width]), // value -> display
     xMap = function(d) { return xScale(xValue(d));}, // data -> display
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    xAxis = d3.svg.axis().tickFormat(d3.time.format('%b %d')).scale(xScale).orient("bottom");
 
 var xStrValue = function(d) { return d['timestr'];}; // data -> string value
 
