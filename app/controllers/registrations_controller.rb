@@ -42,9 +42,9 @@ class RegistrationsController < ApplicationController
       end
     elsif params[:all_fields]
       @registrations = current_game.registrations.includes(user: [:services])
-      csv_string = "\"user_id\",\"id\",\"services\",\"name\",\"email\",\"team_name\",\"age\",\"birthday\",\"signup_timestamp\",\"address\",\"city\",\"state\",\"zip\",\"phone\"\n"
+      csv_string = "\"user_id\",\"id\",\"services\",\"name\",\"email\",\"team_name\",\"age\",\"birthday\",\"signup_timestamp\",\"address\",\"city\",\"state\",\"zip\",\"phone\",\"user_agent\",\"ip_address\",\"referrer\"\n"
       @registrations.each do |u|
-        csv_string += "#{u.user_id},#{u.id},\"#{u.user.services.map {|s| s.provider}.join(";")}\",\"#{u.name}\",\"#{u.email}\",\"#{u.team_name}\",#{u.age if u.birthday},#{u.birthday},#{u.created_at.to_i},\"#{u.address}\",\"#{u.city}\",\"#{u.state}\",\"#{u.zip}\",\"#{u.phone}\"\n"
+        csv_string += "#{u.user_id},#{u.id},\"#{u.user.services.map {|s| s.provider}.join(";")}\",\"#{u.name}\",\"#{u.email}\",\"#{u.team_name}\",#{u.age if u.birthday},#{u.birthday},#{u.created_at.to_i},\"#{u.address}\",\"#{u.city}\",\"#{u.state}\",\"#{u.zip}\",\"#{u.phone}\",\"#{u.user_agent}\",\"#{u.ip_address}\",\"#{u.referrer}\"\n"
       end
     else
       @registrations = current_game.registrations.where('can_email', true).uniq#group(:email)
