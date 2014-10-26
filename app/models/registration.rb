@@ -30,7 +30,7 @@ class Registration < ActiveRecord::Base
   end
 
   def age
-    ((game.starts_at - birthday)/365.0).to_i
+    ((game.starts_at.to_date - birthday)/365.0).to_i
   end
 
   def qr_code

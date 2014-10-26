@@ -26,6 +26,9 @@ class ApplicationController < ActionController::Base
     end
 
     def is_admin?
+      if Rails.env == "development"
+        return true
+      end
       current_user && (current_user.email.length > 5) && (ENV['AUTHORIZED_USERS'].include?(current_user.email))
     end
 
