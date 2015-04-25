@@ -25,6 +25,10 @@ Sfjourney::Application.routes.draw do
 
   match '/r/:game_id/:registration_token' => 'registrations#verify', via: [:get, :post]
 
+  # should only be needed when initially finding the secrets for authorizing ABViz to make changes on Google Docs
+  get 'google_auth', to: 'google_auth#auth'
+  get 'google_redirect', to: 'google_auth#receive_redirect'
+
   resources :services, :only => [:index, :create, :destroy] do
     collection do
       get 'signin'
