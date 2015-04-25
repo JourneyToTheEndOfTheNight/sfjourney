@@ -20,6 +20,8 @@ gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 
+gem 'google-api-client', :require => 'google/api_client'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
