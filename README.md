@@ -1,7 +1,7 @@
-sfjourney
+journeyregistration
 =========
 
-A rails server to manage registrations for the San Francisco Journey to the End of the Night
+A rails server to manage registrations for the Journey to the End of the Night
 
 It is set up to use heroku, so stores secrets in environment variables (kept in .env, which is not checked in to the repo).  Environment variables required are:
 SECRET_KEY_BASE
@@ -25,6 +25,8 @@ rake db:seed
 
 To download a backup of the DB and import it locally:
 heroku pgbackups:capture
-curl -o latest.dump `heroku pgbackups:url`
+curl -o latest.dump `heroku pg:backups public-url`
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -U `whoami` -d sfjourney_development latest.dump
 rake db:migrate
+
+pg_restore latest.dump > latest.sql
