@@ -1,4 +1,4 @@
-journeyregistration
+sfjourney
 =========
 
 A rails server to manage registrations for the Journey to the End of the Night
