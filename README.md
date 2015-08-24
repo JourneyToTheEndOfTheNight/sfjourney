@@ -21,6 +21,8 @@ To run using the same method as will be run on heroku (including environment set
 RACK_ENV=development PORT=3000 foreman start
 ```
 
+Then you can access the app locally from a web browser at http://127.0.0.1:3000
+
 To load up seed data
 ```
 rake db:seed
@@ -39,7 +41,7 @@ pg_restore latest.dump > latest.sql
 To deploy to heroku
 ===================
 ```
-git add remote heroku git@heroku.com:sfjourney.git
+git remote add heroku git@heroku.com:sfjourney.git
 git push heroku master
 heroku run rake db:migrate
 ```
