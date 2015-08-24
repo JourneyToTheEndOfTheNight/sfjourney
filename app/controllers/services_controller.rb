@@ -36,13 +36,18 @@ class ServicesController < ApplicationController
   def make_new_account
     Rails.logger.info "Session: " + session.inspect
     Rails.logger.info "Auth hash: " + session[:authhash].inspect
-    @newuser = User.new
     if !session[:authhash].has_key?(:email)
       flash[:error] = 'Your authentication provider did not give us an email address...please try another login method.'
       redirect_to root_url
     end
-    @newuser.email = session[:authhash][:email]
-    @newuser.name = session[:authhash][:name]
+    google_auth_service = Service.find_by(:provider => 'google', :uemail => session[:authhash][:email])
+    if google_auth_service
+      @newuser = google_auth_service.user
+    else
+      @newuser = User.new
+      @newuser.email ||= session[:authhash][:email]
+      @newuser.name ||= session[:authhash][:name]
+    end
 
     @newuser.services.build(:provider => session[:authhash][:provider], :uid => session[:authhash][:uid], :uname => session[:authhash][:name], :uemail => session[:authhash][:email])
 
