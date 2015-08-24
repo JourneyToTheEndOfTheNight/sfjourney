@@ -16,7 +16,6 @@ gem 'qr4r'
 gem 'omniauth'
 gem 'omniauth-openid'
 gem 'omniauth-facebook'
-gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 
