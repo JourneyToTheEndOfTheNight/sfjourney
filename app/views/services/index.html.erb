@@ -5,6 +5,7 @@
 	<h2>You can use these accounts to sign in</h2>
 	
 	<% @services.each do |service| %>  
+	    <% next if service.provider == 'google' %>
 		  <div class="service_in_use round">  
 		      <div class="service_img">
 			      	<% if ['aol', 'facebook', 'github', 'google', 'openid', 'twitter', 'yahoo'].index(service.provider) %>
