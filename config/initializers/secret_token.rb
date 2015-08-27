@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Sfjourney::Application.config.secret_key_base = '29a34e41fb23f940e67f101b8bf5212d0500449f891871da72bf948bdac81111c7740c30b4c740f2a5c084b12fc604febe8913069acef51bf48ffd1a7135a269'
+Sfjourney::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
