@@ -59,4 +59,8 @@ h2 {
 
 </style>
 
-<%= render 'waiver' %>
+<div class="padded">
+Thank you for registering.
+<p><b>Please print and sign the attached pdf waiver, and bring it to <%= @registration.game.start_location %> on <%= @registration.game.local_starts_at.strftime("%A %B %d by %l%P") %>.
+<br />YOU WILL NOT BE ALLOWED TO PLAY IF YOU DO NOT BRING YOUR PRINTED WAIVER.</b>
+</div>

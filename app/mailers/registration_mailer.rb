@@ -4,6 +4,7 @@ class RegistrationMailer < ActionMailer::Base
   def new_registration_email(registration)
     @registration = registration
     @num_registered = registration.game.registrations.count
+    attachments['journey_waiver.pdf'] = @registration.waiver_file
     mail(:to => ENV['GMAIL_EMAIL'],
          :subject => "[journeyreg] #{@registration.name}/#{@registration.team_name}; #{@num_registered} registered")
   end

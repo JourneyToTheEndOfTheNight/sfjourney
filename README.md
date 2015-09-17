@@ -18,7 +18,7 @@ You can create a sample .env file by copying the env.sample file to .env.
 
 To run using the same method as will be run on heroku (including environment settings), run:
 ```
-RACK_ENV=development PORT=3000 foreman start
+DATABASE_URL=postgres://localhost/sfjourney_development RACK_ENV=development PORT=3000 foreman start
 ```
 
 To load up seed data

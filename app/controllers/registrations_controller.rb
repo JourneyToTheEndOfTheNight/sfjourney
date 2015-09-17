@@ -17,13 +17,6 @@ class RegistrationsController < ApplicationController
     # current_game.num_remaining <= 0 && !current_user.friend_space?(current_game)
   end
 
-  def blank_waiver
-    if full && !is_admin?
-      redirect_to "/registrations"
-    end
-    @underage = params[:underage]
-  end
-
   def verify
     @registration = Registration.find(:game_id => params[:game_id], :token => params[:registration_token])
     if is_admin?
@@ -71,7 +64,7 @@ class RegistrationsController < ApplicationController
     if @registration.user != current_user && !is_admin?
       redirect_to '/registrations'
     end
-    @qr = @registration.qr_code
+    send_file(@registration.waiver_file, filename: 'journey_waiver.pdf', type: 'application/pdf', disposition: :inline)
   end
 
   def edit
