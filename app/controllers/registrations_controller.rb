@@ -112,7 +112,8 @@ class RegistrationsController < ApplicationController
           rescue => e
             logger.error "Error sending email" + e.to_s + e.backtrace.join("\n")
           end
-          redirect_to @registration, notice: 'Registration was successfully created.'
+          redirect_to '/registrations', notice: 'Registration was successfully created.'
+          # redirect_to @registration, notice: 'Registration was successfully created.'
         end
         format.json { render action: 'show', status: :created, location: @registration }
       else

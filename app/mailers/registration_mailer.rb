@@ -4,7 +4,6 @@ class RegistrationMailer < ActionMailer::Base
   def new_registration_email(registration)
     @registration = registration
     @num_registered = registration.game.registrations.count
-    attachments['journey_waiver.pdf'] = @registration.waiver_file
     mail(:to => ENV['GMAIL_EMAIL'],
          :subject => "[journeyreg] #{@registration.name}/#{@registration.team_name}; #{@num_registered} registered")
   end
@@ -12,14 +11,9 @@ class RegistrationMailer < ActionMailer::Base
   def confirmation_email(registration)
     @registration = registration
     begin
-      attachments.inline['qr.png'] = {
-        :data => Base64.encode64(registration.qr_code_data),
-        :mime_type => "image/png",
-        :encoding => "base64"
-      }
-      @qr_inline = attachments['qr.png'].url
+      attachments['journey_waiver.pdf'] = File.read(@registration.waiver_file)
     rescue => e
-      logger.error "Error attaching QR code: " + e.to_s + e.backtrace.join("\n")
+      logger.error "Error attaching waiver for #{registration.inspect}: " + e.to_s + e.backtrace.join("\n")
     end
     mail(:to => @registration.email,
          :subject => "Journey ticket: PRINT and BRING TO START LINE")
