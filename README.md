@@ -21,6 +21,8 @@ To run using the same method as will be run on heroku (including environment set
 DATABASE_URL=postgres://localhost/sfjourney_development RACK_ENV=development PORT=3000 foreman start
 ```
 
+To log in in development, the easiest way is to create an OpenID at http://openid.yahoo.com/ and use that to log in
+
 To load up seed data
 ```
 rake db:seed
