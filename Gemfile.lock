@@ -86,6 +86,10 @@ GEM
     logging (2.0.0)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
+    lograge (0.3.4)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     memoist (0.12.0)
@@ -131,6 +135,8 @@ GEM
     qr4r (0.4.0)
       mojo_magick
       rqrcode
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.5.5)
     rack-openid (1.3.1)
       rack (>= 1.1.0)
@@ -222,6 +228,7 @@ DEPENDENCIES
   google-api-client
   jbuilder (~> 1.2)
   jquery-rails
+  lograge
   omniauth
   omniauth-facebook
   omniauth-github
@@ -230,6 +237,7 @@ DEPENDENCIES
   pg
   postmark-rails
   qr4r
+  quiet_assets
   rails (~> 4.0.0)
   rails_12factor
   roadie (~> 2.4)
@@ -241,3 +249,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   wicked_pdf
   wkhtmltopdf-heroku
+
+BUNDLED WITH
+   1.10.6

@@ -52,9 +52,12 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'lograge'
 group :development do
   gem 'foreman'
+  gem 'quiet_assets'
 end
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
