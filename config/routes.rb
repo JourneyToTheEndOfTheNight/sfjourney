@@ -35,8 +35,8 @@ Sfjourney::Application.routes.draw do
   end
 
   if Rails.env == 'production'
-#    root "registrations#landing"
-    root "donations#donate"
+    root "registrations#landing"
+#    root "donations#donate"
   else
     root "registrations#landing"
   end
