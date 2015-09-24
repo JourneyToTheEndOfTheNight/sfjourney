@@ -1,62 +1,7 @@
-<style type="text/css">
+<p>Thank you for registering.</p>
 
-.noprint {
-  display:none;
-}
+<p><b>Please print and sign the attached pdf waiver, and bring it to <%= @registration.game.start_location %> on <%= @registration.game.local_starts_at.strftime("%A %B %d by %l%P") %>.
+<br />YOU WILL NOT BE ALLOWED TO PLAY IF YOU DO NOT BRING YOUR PRINTED WAIVER.</b>
+</p>
 
-@page
-{
-    size: auto;   /* auto is the initial value */
-    /* this affects the margin in the printer settings */
-    margin: 0.25in 0.25in 0.25in 0.25in;
-}
-
-body
-{
-    /* this affects the margin on the content before sending to printer */
-    margin: 0mm; padding: 0.25in;
-}
-
-body {
-  font-size: 0.5em;
-  color: #000000;
-  background-color: #FFFFFF;
-  line-height: 100%;
-}
-
-h2 {
-  color: #000000;
-  background-color: #FFFFFF;
-  font-size: 1.5em;
-  line-height: 150%;
-}
-
-.sign_table {
-  border-collapse:collapse;
-  width:60%;
-}
-
-.sign_table td {
-  padding-left:3em;
-}
-
-.underline {
-  padding-top:3em;
-  border-bottom:1px solid #000;
-}
-
-.name {
-  width:70%;
-}
-
-.spacing {
-  width:10%;
-}
-
-.date {
-  width:20%;
-}
-
-</style>
-
-<%= render 'waiver' %>
+<p>Get ready for an amazing Journey!</p>

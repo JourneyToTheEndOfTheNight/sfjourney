@@ -52,9 +52,26 @@ class Registration < ActiveRecord::Base
       end
       return File.read(qr_file)
     rescue => e
-      logger.error "Error with file: " + e.to_s + e.backtrace.join("\n")
+      logger.error "Error with qr file: " + e.to_s + e.backtrace.join("\n")
     end
     return nil
   end
 
+  def waiver_file
+    filename = "./tmp/waiver_#{self.id}.pdf"
+    if not File.exist?(filename)
+      namespace = OpenStruct.new(:registration => self)
+      template = ERB.new(File.open(Rails.root.join('app','views','registration_mailer','_waiver.html.erb')).read)
+      filled_waiver = template.result(namespace.instance_eval { binding })
+      pdf = WickedPdf.new.pdf_from_string(filled_waiver, :margin => {:top                => 0.5,
+                           :bottom             => 0,
+                           :left               => 0.5,
+                           :right              => 0.5})
+      File.open(filename, 'wb') do |file|
+        file << pdf
+      end
+      #system("open #{waiver_file}")
+    end
+    filename
+  end
 end

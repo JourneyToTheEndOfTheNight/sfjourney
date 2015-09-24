@@ -16,12 +16,17 @@ AUTHORIZED_USERS
 
 You can create a sample .env file by copying the env.sample file to .env.
 
+Develop
+=======
+
 To run using the same method as will be run on heroku (including environment settings), run:
 ```
-RACK_ENV=development PORT=3000 foreman start
+DATABASE_URL=postgres://localhost/sfjourney_development RACK_ENV=development PORT=3000 foreman start
 ```
 
 Then you can access the app locally from a web browser at http://127.0.0.1:3000
+
+To log in in development, the easiest way is to create an OpenID at http://openid.yahoo.com/ and use that to log in
 
 To load up seed data
 ```
