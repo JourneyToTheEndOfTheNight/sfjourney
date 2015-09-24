@@ -1,9 +1,11 @@
 development:
+  host: localhost
   adapter: postgresql
   encoding: unicode
   database: sfjourney_development
   pool: 5
 test:
+  host: localhost
   adapter: postgresql
   encoding: unicode
   database: sfjourney_test
