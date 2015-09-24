@@ -77,7 +77,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations/new
   def new
     registrations = current_user.registrations_for(current_game)
-    if registrations.length > 0
+    if registrations.length > 0 && !is_admin?
       redirect_to '/registrations'
     end
     if full
