@@ -36,7 +36,7 @@ rake db:seed
 
 To download a backup of the DB and import it locally:
 ```
-heroku pgbackups:capture
+heroku pg:backups capture
 curl -o latest.dump `heroku pg:backups public-url`
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -U `whoami` -d sfjourney_development latest.dump
 rake db:migrate

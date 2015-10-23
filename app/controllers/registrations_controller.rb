@@ -141,6 +141,11 @@ class RegistrationsController < ApplicationController
     @data = ts.each_with_index.map {|ts, i| {'ts' => ts * 1000, 'timestr' => Time.at(ts).strftime("%m/%d %H:%M:%S"), 'registered' => i}}
   end
 
+  def teams
+    @team_reg = current_game.registrations.order(:created_at).pluck(:team_name, :created_at).select {|a| a[0].present?}.map{|a| [a[0], a[1], a[0].downcase.gsub(/[^a-z]/,'')]}.reverse
+    @total_counts = @team_reg.map{|a| a[2]}.inject(Hash.new(0)) { |h,e| h[e] += 1; h }.select { |k,v| v > 1 }.inject({}) { |r, e| r[e.first] = e.last; r }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_registration

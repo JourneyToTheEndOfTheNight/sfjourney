@@ -1,0 +1,14 @@
+<table>
+<tr>
+  <th>Team</th>
+  <th>Registration time</th>
+  <th>Current num registered</th>
+</tr>
+<% @team_reg.each do |team| %>
+<tr>
+  <td><%= team[0] %></td>
+  <td><%= team[1] %></td>
+  <td><%= @total_counts[team[2]] %></td>
+</tr>
+<% end %>
+</table>
