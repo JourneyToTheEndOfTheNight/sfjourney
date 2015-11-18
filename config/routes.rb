@@ -8,13 +8,14 @@ Sfjourney::Application.routes.draw do
 
   get "/graph" => "registrations#graph"
   get "/teams" => "registrations#teams"
+  get "export" => 'registrations#export'
+  get "blank" => 'registrations#blank_waiver'
 
   get "registrations/full" => 'registrations#full'
   resources :registrations, :only => [:index, :create, :destroy, :show, :new, :edit]
 
   get "tos" => 'tos#show'
   get "privacy" => 'privacy#show'
-  get "export" => 'registrations#export'
 
   # Omniauth pure
   match "/signin" => "services#signin", via: [:get, :post]

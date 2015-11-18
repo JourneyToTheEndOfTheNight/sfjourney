@@ -1,7 +1,25 @@
 class RegistrationsController < ApplicationController
   before_filter :authenticate_user!, :except => [:landing]
   before_action :set_registration, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin!, only: [:export]
+  before_action :require_admin!, only: [:export, :blank_waiver]
+
+  def blank_waiver
+    filename = "./tmp/waiver_blank_#{current_game.id}.pdf"
+    if not File.exist?(filename)
+      namespace = OpenStruct.new(:registration => nil)
+      template = ERB.new(File.open(Rails.root.join('app','views','registrations','_blank_waiver.html.erb')).read)
+      filled_waiver = template.result(namespace.instance_eval { binding })
+      pdf = WickedPdf.new.pdf_from_string(filled_waiver, :margin => {:top                => 0.5,
+                           :bottom             => 0,
+                           :left               => 0.5,
+                           :right              => 0.5})
+      File.open(filename, 'wb') do |file|
+        file << pdf
+      end
+      #system("open #{filename}")
+    end
+    send_file(filename, filename: 'journey_blank_waiver.pdf', type: 'application/pdf', disposition: :inline)
+  end
 
   def landing
     @num_remaining = current_game.display_num_remaining
@@ -61,10 +79,11 @@ class RegistrationsController < ApplicationController
   # GET /registrations/1
   # GET /registrations/1.json
   def show
-    if @registration.user != current_user && !is_admin?
+    if (@registration.user != current_user) && !is_admin?
       redirect_to '/registrations'
+    else
+      send_file(@registration.waiver_file, filename: 'journey_waiver.pdf', type: 'application/pdf', disposition: :inline)
     end
-    send_file(@registration.waiver_file, filename: 'journey_waiver.pdf', type: 'application/pdf', disposition: :inline)
   end
 
   def edit
